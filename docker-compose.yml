@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql:8
+    container_name: vote_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: vote
+      MYSQL_USER: vote
+      MYSQL_PASSWORD: vote
+    ports:
+      - "3306:3306"
+    networks:
+      - app-network
+    volumes:
+      - db_data:/var/lib/mysql
+  backend:
+    container_name: vote_api
+    build:
+      context: ./
+    ports:
+      - "8080:8080"
+    networks:
+      - app-network
+    depends_on:
+      - db
+  frontend:
+    container_name: vote_view
+    build:
+      context: ./view/
+    ports:
+      - "80:80"
+    networks:
+      - app-network
+    depends_on:
+      - backend
+
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  db_data:

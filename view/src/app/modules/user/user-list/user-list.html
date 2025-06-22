@@ -1,0 +1,27 @@
+<div class="header">
+  <h2>Utilisateurs</h2>
+  <button mat-raised-button color="primary" (click)="add()">Ajouter</button>
+</div>
+
+<table mat-table [dataSource]="users" class="mat-elevation-z8">
+  <ng-container matColumnDef="id">
+    <th mat-header-cell *matHeaderCellDef>ID</th>
+    <td mat-cell *matCellDef="let user">{{user.id}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="fullname">
+    <th mat-header-cell *matHeaderCellDef>Nom</th>
+    <td mat-cell *matCellDef="let user">{{user.firstname}} {{user.lastname}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="actions">
+    <th mat-header-cell *matHeaderCellDef>Actions</th>
+    <td mat-cell *matCellDef="let user">
+      <button mat-icon-button (click)="edit(user.id)"><mat-icon>edit</mat-icon></button>
+      <button mat-icon-button color="warn" (click)="delete(user.id)"><mat-icon>delete</mat-icon></button>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="['id', 'fullname', 'actions']"></tr>
+  <tr mat-row *matRowDef="let row; columns: ['id', 'fullname', 'actions'];"></tr>
+</table>

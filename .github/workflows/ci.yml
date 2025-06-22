@@ -1,0 +1,53 @@
+name: CI/CD Pipeline - Election
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build-backend:
+    name: Build Backend
+    runs-on: ubuntu-latest
+    container: maven:3.9-eclipse-temurin-21
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Build with Maven
+        run: mvn clean package -DskipTests
+        working-directory: ./
+
+      - name: Install Docker
+        run: |
+          apt-get update
+          apt-get install -y --no-install-recommends docker.io
+
+      - name: Build backend Docker image
+        run: docker build -t election-backend ./
+
+  build-frontend:
+    name: Build Frontend
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '22'
+
+      - name: Install dependencies
+        run: npm ci
+        working-directory: ./view
+
+      - name: Build frontend
+        run: npm run build
+        working-directory: ./view
+
+      - name: Build frontend Docker image
+        run: docker build -t election-frontend ./view

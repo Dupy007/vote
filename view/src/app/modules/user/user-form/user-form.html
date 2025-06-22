@@ -1,0 +1,27 @@
+<mat-card>
+  <mat-card-title>{{ isEdit ? 'Modifier l\'utilisateur' : 'Ajouter un utilisateur' }}</mat-card-title>
+
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Prénom</mat-label>
+      <input matInput formControlName="firstname" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Nom</mat-label>
+      <input matInput formControlName="lastname" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Date de naissance</mat-label>
+      <input matInput formControlName="birthdate" type="date" />
+    </mat-form-field>
+
+    <div class="actions">
+      <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">
+        {{ isEdit ? 'Mettre à jour' : 'Créer' }}
+      </button>
+      <button mat-button type="button" (click)="cancel()">Annuler</button>
+    </div>
+  </form>
+</mat-card>

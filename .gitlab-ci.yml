@@ -1,0 +1,29 @@
+stages:
+  - build
+  - docker
+
+variables:
+  DOCKER_DRIVER: overlay2
+
+build_backend:
+  stage: build
+  script:
+    - mvn clean package -DskipTests
+
+build_frontend:
+  stage: build
+  image: node:22
+  script:
+    - cd view
+    - npm ci
+    - npm run build
+
+dockerize_backend:
+  stage: docker
+  script:
+    - docker build -t election-backend .
+
+dockerize_frontend:
+  stage: docker
+  script:
+    - docker build -t election-frontend view/.

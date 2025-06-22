@@ -1,0 +1,27 @@
+<h2>Candidats</h2>
+<button mat-raised-button color="primary" (click)="add()">Ajouter</button>
+
+<table mat-table [dataSource]="candidats" class="mat-elevation-z8">
+  <ng-container matColumnDef="id">
+    <th mat-header-cell *matHeaderCellDef>ID</th>
+    <td mat-cell *matCellDef="let c">{{ c.id }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="user">
+    <th mat-header-cell *matHeaderCellDef>Utilisateur</th>
+    <td mat-cell *matCellDef="let c">
+      {{ c.user.firstname }} {{ c.user.lastname }}
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="actions">
+    <th mat-header-cell *matHeaderCellDef>Actions</th>
+    <td mat-cell *matCellDef="let c">
+      <button mat-icon-button (click)="edit(c.id)"><mat-icon>edit</mat-icon></button>
+      <button mat-icon-button color="warn" (click)="delete(c.id)"><mat-icon>delete</mat-icon></button>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="['id', 'user', 'actions']"></tr>
+  <tr mat-row *matRowDef="let row; columns: ['id', 'user', 'actions'];"></tr>
+</table>

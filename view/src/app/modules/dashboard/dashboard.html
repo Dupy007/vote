@@ -1,0 +1,31 @@
+<h2>Tableau de bord</h2>
+
+<div class="stats">
+  <mat-card>
+    <mat-card-title>Utilisateurs</mat-card-title>
+    <mat-card-content>{{ totalUsers }}</mat-card-content>
+    <button (click)="goToUser()" type="button" matButton="outlined"> VIEW </button>
+  </mat-card>
+
+  <mat-card>
+    <mat-card-title>Candidats</mat-card-title>
+    <mat-card-content>{{ totalCandidats }}</mat-card-content>
+      <button (click)="goToCandidat()" type="button" matButton="outlined"> VIEW </button>
+  </mat-card>
+
+  <mat-card>
+    <mat-card-title>Votes</mat-card-title>
+    <mat-card-content>{{ totalVotes }}</mat-card-content>
+    <button (click)="goToVote()" type="button" matButton="outlined"> VIEW </button>
+  </mat-card>
+</div>
+
+<h3>Top 3 Candidats</h3>
+
+<mat-list>
+  <mat-list-item *ngFor="let winner of winners">
+    <mat-icon matListIcon>emoji_events</mat-icon>
+    <h4 matListItemTitle>{{ winner.firstname }} {{ winner.lastname }}</h4>
+    <p matListItemLine>Rang : {{ winner.rang }} | Points : {{ winner.points }}</p>
+  </mat-list-item>
+</mat-list>

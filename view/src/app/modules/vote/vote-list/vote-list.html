@@ -1,0 +1,31 @@
+<h2>Votes</h2>
+<button mat-raised-button color="primary" (click)="add()">Ajouter un vote</button>
+
+<table mat-table [dataSource]="votes" class="mat-elevation-z8">
+  <ng-container matColumnDef="id">
+    <th mat-header-cell *matHeaderCellDef>ID</th>
+    <td mat-cell *matCellDef="let v">{{ v.id }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="user">
+    <th mat-header-cell *matHeaderCellDef>Votant</th>
+    <td mat-cell *matCellDef="let v">{{ v.user.firstname }} {{ v.user.lastname }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="candidat">
+    <th mat-header-cell *matHeaderCellDef>Vote pour</th>
+    <td mat-cell *matCellDef="let v">{{ v.candidat.user.firstname }} {{ v.candidat.user.lastname }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="actions">
+    <th mat-header-cell *matHeaderCellDef>Actions</th>
+    <td mat-cell *matCellDef="let v">
+      <button mat-icon-button color="warn" (click)="delete(v.id)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="['id', 'user', 'candidat', 'actions']"></tr>
+  <tr mat-row *matRowDef="let row; columns: ['id', 'user', 'candidat', 'actions'];"></tr>
+</table>

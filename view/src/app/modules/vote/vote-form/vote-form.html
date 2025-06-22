@@ -1,0 +1,28 @@
+<mat-card>
+  <mat-card-title>Ajouter un vote</mat-card-title>
+
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Utilisateur</mat-label>
+      <mat-select formControlName="user">
+        <mat-option *ngFor="let u of users" [value]="u.id">
+          {{ u.firstname }} {{ u.lastname }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Candidat</mat-label>
+      <mat-select formControlName="candidat">
+        <mat-option *ngFor="let c of candidats" [value]="c.id">
+          {{ c.user.firstname }} {{ c.user.lastname }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <div class="actions">
+      <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">Voter</button>
+      <button mat-button type="button" (click)="cancel()">Annuler</button>
+    </div>
+  </form>
+</mat-card>
